@@ -1,4 +1,4 @@
-
+from collections import defaultdict
 
 
 class Node:
@@ -85,6 +85,27 @@ class LinkedList:
 
         print(startNode.data)
 
+
+    def findDuplicate(self):
+
+        letterDict = dict()
+        startNode = self.head
+        x = 0
+
+        while True:
+            if startNode is None:
+                break
+
+            if startNode.data in letterDict :
+                print("Duplicate exists in ",letterDict[startNode.data],x)
+                break
+
+            letterDict[startNode.data] = x
+            startNode = startNode.nextNode
+            x = x + 1
+
+
+
 node1 = Node("a")
 node2 = Node("b")
 node3 = Node("c")
@@ -92,6 +113,7 @@ node4 = Node("d")
 node5 = Node("e")
 node6 = Node("f")
 node7 = Node("g")
+node8 = Node("b")
 
 linkedList = LinkedList()
 
@@ -102,8 +124,9 @@ linkedList.insert(node4)
 linkedList.insert(node5)
 linkedList.insert(node6)
 linkedList.insert(node7)
+linkedList.insert(node8)
 
-linkedList.thirdNode()
+linkedList.findDuplicate()
 
 
 
