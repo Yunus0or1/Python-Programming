@@ -1,3 +1,10 @@
+
+# 20 Multi Processing Units.
+# SSD Storage
+# 8 GB RAM
+# AMD FX-6300 Processor
+# Took 292.8992097377777 seconds to insert 20 Million rows
+
 import time
 import multiprocessing
 import random
