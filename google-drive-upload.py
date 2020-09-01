@@ -16,7 +16,7 @@ g_login.LocalWebserverAuth()
 drive = GoogleDrive(g_login)
 
 # Delete all Previous APK and IPA files
-file_list = drive.ListFile({'q': "'1bEbmdJRq4cf3CwB6j03TnZC99yS3GyoY' in parents and trashed=false"}).GetList()
+file_list = drive.ListFile({'q': "'1bEbmdJRq4cf3CwB' in parents and trashed=false"}).GetList()
 for file in file_list:
     if str(file['title']) == "customer.apk" or str(file['title']) == "valet.apk":
         # Initialize GoogleDriveFile instance with file id.
