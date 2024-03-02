@@ -66,7 +66,6 @@ class Solution_Recursion():
 
             self.call_dfs_connected_graph(graph, neighbour)
 
-
 class Solution_Recursion():
     maximum = 0
     currentTotal = 0
@@ -91,29 +90,27 @@ class Solution_Recursion():
 
             self.call_dfs_connected_graph(graph, neighbour)
 
-class Solution_Recursion():
-    maximum = 0
-    currentTotal = 0
-    visited = set()
-
+class Solution_Recursion_With_NO_GLOBAL_STATE():
     def dfs_recursion_connected_graph(self, graph):
+        visited = set()
+        maximum = 0
         for node in graph:
-            if node not in self.visited:
-                self.currentTotal = 0
-                self.call_dfs_connected_graph(graph, node)
+            if node not in visited:
+                maximum = max(self.call_dfs_connected_graph(graph, node, 0, visited), maximum)
 
-        return self.maximum
+        return maximum
 
-    def call_dfs_connected_graph(self, graph, current):
-        self.currentTotal = self.currentTotal + 1
-        self.maximum = max(self.maximum, self.currentTotal)
-        self.visited.add(current)
+    def call_dfs_connected_graph(self, graph, current, total, visited):
+        if current in visited:
+            return total
+
+        currentT = total + 1
+        visited.add(current)
 
         for neighbour in graph[current]:
-            if neighbour in self.visited:
-                continue
+            currentT = self.call_dfs_connected_graph(graph, neighbour, currentT, visited)
 
-            self.call_dfs_connected_graph(graph, neighbour)
+        return currentT
 
 graph = {
     0: [1,8,5],
@@ -126,4 +123,4 @@ graph = {
     2: [4, 3],
 }
 
-print(Solution_Recursion().dfs_recursion_connected_graph(graph))
+print(Solution_Recursion_With_NO_GLOBAL_STATE().dfs_recursion_connected_graph(graph))
