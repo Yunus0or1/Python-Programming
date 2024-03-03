@@ -1,7 +1,46 @@
 
+def dfs_stack(graph, current):
+    visited = set()
 
-def Solution_Stack():
-    def findMaxConnected(graph):
+    stack = [current]
+
+    while len(stack) > 0:
+        current = stack.pop()
+        visited.add(current)
+        print(current)
+
+        for neighbour in graph[current]:
+            if neighbour in visited:
+                continue
+
+            stack.append(neighbour)
+
+def convertToAdjanecyList (self,edges) -> dict:
+    graph = {}
+
+    for edge in edges:
+
+        key1 = edge[0]
+        key2 = edge[1]
+
+        if key1 not in graph:
+            graph[key1] = [key2]
+        else:
+            currentList = graph[key1]
+            currentList.append(key2)
+            graph[key1] = currentList
+
+        if key2 not in graph:
+            graph[key2] = [key1]
+        else:
+            currentList = graph[key2]
+            currentList.append(key1)
+            graph[key2] = currentList
+
+    return graph
+
+class Solution_Stack():
+    def findMaxConnected(self, graph):
         maximum = 0
         visited = set()
 
@@ -14,11 +53,14 @@ def Solution_Stack():
 
             while len(stack) > 0:
                 current = stack.pop()
+                if current in visited:
+                    continue
+
                 visited.add(current)
                 totalNode = totalNode + 1
 
                 for neighbour in graph[current]:
-                    if neighbour in visited or neighbour in stack:
+                    if neighbour in visited:
                         continue
                     stack.append(neighbour)
 
@@ -26,47 +68,7 @@ def Solution_Stack():
 
         return maximum
 
-    def dfs_stack(graph, current):
-        visited = set()
-
-        stack = [current]
-
-        while len(stack) > 0:
-            current = stack.pop()
-            visited.add(current)
-            print(current)
-
-            for neighbour in graph[current]:
-                if neighbour in visited:
-                    continue
-
-                stack.append(neighbour)
-
-class Solution_Recursion():
-    maximum = 0
-    currentTotal = 0
-    visited = set()
-
-    def dfs_recursion_connected_graph(self, graph):
-        for node in graph:
-            if node not in self.visited:
-                self.currentTotal = 0
-                self.call_dfs_connected_graph(graph, node)
-
-        return self.maximum
-
-    def call_dfs_connected_graph(self, graph, current):
-        self.currentTotal = self.currentTotal + 1
-        self.maximum = max(self.maximum, self.currentTotal)
-        self.visited.add(current)
-
-        for neighbour in graph[current]:
-            if neighbour in self.visited:
-                 continue
-
-            self.call_dfs_connected_graph(graph, neighbour)
-
-class Solution_Recursion():
+class Solution_Recursion_GLOBAL_State():
     maximum = 0
     currentTotal = 0
     visited = set()
@@ -90,7 +92,7 @@ class Solution_Recursion():
 
             self.call_dfs_connected_graph(graph, neighbour)
 
-class Solution_Recursion_With_NO_GLOBAL_STATE():
+class Solution_Recursion_NO_GLOBAL_STATE():
     def dfs_recursion_connected_graph(self, graph):
         visited = set()
         maximum = 0
@@ -123,4 +125,4 @@ graph = {
     2: [4, 3],
 }
 
-print(Solution_Recursion_With_NO_GLOBAL_STATE().dfs_recursion_connected_graph(graph))
+print(Solution_Stack().findMaxConnected(graph))
